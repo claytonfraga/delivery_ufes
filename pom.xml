@@ -4,6 +4,10 @@
     <groupId>com.ufes.delivery</groupId>
     <artifactId>Delivery</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <sonar.organization>claytonfraga-github</sonar.organization>
+    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+    <sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+    <sonar.java.binaries>target/classes</sonar.java.binaries>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
@@ -61,6 +65,11 @@
                         <goals>
                             <goal>report</goal>
                         </goals>
+                        <configuration>
+                            <formats>
+                                <format>XML</format>
+                            </formats>
+                        </configuration>                        
                     </execution>
                     <execution>
                         <id>coverage-check</id>
