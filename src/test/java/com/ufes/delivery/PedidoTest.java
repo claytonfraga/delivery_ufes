@@ -1,16 +1,8 @@
 package com.ufes.delivery;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import com.ufes.delivery.builder.CestaTopBuilder;
-import com.ufes.delivery.builder.DiretorCesta;
-import com.ufes.delivery.dao.ProdutoDAO;
 import com.ufes.delivery.model.Cliente;
+
+import com.ufes.delivery.dao.ProdutoDAO;
 import com.ufes.delivery.model.Estabelecimento;
 import com.ufes.delivery.model.ItemPedido;
 import com.ufes.delivery.model.Pedido;
@@ -18,7 +10,16 @@ import com.ufes.delivery.model.Pedido;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+
 public class PedidoTest {
+
 
     public PedidoTest() {
     }
@@ -26,7 +27,6 @@ public class PedidoTest {
     private ProdutoDAO dao;
     private Cliente cliente;
     private Estabelecimento vendedor;
-    private DiretorCesta diretor;
 
     @BeforeEach
     public void carregaDao() {
@@ -41,7 +41,6 @@ public class PedidoTest {
         //Arrange
         cliente = new Cliente("Fulano", 1000.0);
         vendedor = new Estabelecimento("Casa XPTO");
-        diretor = new DiretorCesta();
 
         Pedido pedido = new Pedido(1, cliente, vendedor, LocalTime.of(12, 00));
 
