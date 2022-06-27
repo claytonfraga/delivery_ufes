@@ -37,6 +37,7 @@ public class CestaTopBuilderTest {
     @Test
     @DisplayName("Cria um pedido do tipo Cesta básica TOP usando o Builder")
     public void CT001() {
+        
         //Arrange
         cliente = new Cliente("Fulano", 1000.0);
         vendedor = new Estabelecimento("Casa XPTO");
