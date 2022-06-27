@@ -1,5 +1,8 @@
-# delivery_ufes
+# Delivery UFES
 Versão 1.0 - Delivery UFES
+Gestão da Qualidade de Software
+Universidade Federal do Espírito Santo
+Prof. Dr. Clayton Vieira Fraga Filho
 
 
 A especificação preliminar está disponível no seguinte link https://docs.google.com/document/d/1OelRmK6zwGt9uYvLBVp1GIHMl9Tr8rK2YEMtjReMmIs/edit?usp=sharing
