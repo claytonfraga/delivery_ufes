@@ -4,14 +4,18 @@ import com.ufes.delivery.model.Cliente;
 
 import com.ufes.delivery.dao.ProdutoDAO;
 import com.ufes.delivery.model.Estabelecimento;
+import com.ufes.delivery.model.EventoPedido;
 import com.ufes.delivery.model.ItemPedido;
 import com.ufes.delivery.model.Pedido;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -53,7 +57,12 @@ public class PedidoTest {
         pedido.sairParaEntrega();
         pedido.entregar();
         pedido.avaliar(5);
-
+        
+        
+        Optional<EventoPedido> evento = pedido.getEventos().stream()
+            .filter(umEvento -> umEvento.getMensagem().contains("Avaliação do pedido")).findAny();
+        
+        
         //Assert
         assertEquals(1, pedido.getItens().size());
         assertEquals(LocalDate.now(), pedido.getData());
@@ -61,6 +70,9 @@ public class PedidoTest {
         assertEquals("Fulano", pedido.getCliente().getNome());
         assertEquals(26.87, pedido.getValorFinal(), 0.01);
         assertEquals("Pedido entregue ao cliente", pedido.getEstado());
+        assertThat(evento.get().getMensagem(), equalTo("Avaliação do pedido: 5"));
+
+
     }
 
     @Test

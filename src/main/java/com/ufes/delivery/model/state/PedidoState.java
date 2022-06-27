@@ -62,7 +62,7 @@ public abstract class PedidoState {
         throw new RuntimeException("Itens não podem ser removidos do pedido no estado \'" + getNomeEstado() + "\'");
     }
 
-    public void avaliar(double nota) {
+    public void avaliar(int nota) {
         if (getNomeEstado().toLowerCase().contains("entregue") || getNomeEstado().toLowerCase().contains("reembolsado")) {
             if (nota >= 1 && nota <= 5) {
                 pedido.add(new EventoPedido(LocalDateTime.now(), "Avaliação do pedido: " + nota));

@@ -17,6 +17,16 @@ public class EventoPedido {
         this.mensagem = mensagem;
     }
 
+    public String getMensagem() {
+        return this.mensagem;
+    }
+
+
+    public LocalDateTime getDataHora() {
+        return this.dataHora;
+    }
+
+
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");

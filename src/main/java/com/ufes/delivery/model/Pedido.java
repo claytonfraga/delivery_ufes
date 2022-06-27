@@ -185,7 +185,7 @@ public final class Pedido {
         state.removeItem(nome);
     }
 
-    public void avaliar(double nota) {
+    public void avaliar(int nota) {
         state.avaliar(nota);
     }
 

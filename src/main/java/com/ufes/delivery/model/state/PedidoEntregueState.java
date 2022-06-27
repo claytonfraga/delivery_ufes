@@ -9,7 +9,7 @@ public class PedidoEntregueState extends PedidoState {
     }
 
     @Override
-    public void avaliar(double nota) {
+    public void avaliar(int nota) {
         super.avaliar(nota);
     }
 }
