@@ -235,7 +235,7 @@ public class TesteState {
     }
 
     @Test
-    @DisplayName("Confirmar um pedido com uma quantidade de itens maior que a de estoque")
+    @DisplayName("Incluir um item no pedido quando o pedido está aguardando pagamento")
     void CT008(){
         //Horário de início: 10:15
         //Horário de témino: 10:20
@@ -290,7 +290,6 @@ public class TesteState {
         //Assert
         assertThat(exception, instanceOf(RuntimeException.class));
         assertThat(exception.getMessage(), is("Este pedido não pode ser avaliado no estado \'Confirmado\'"));
-        assertThat(pedido.getItens(), hasSize(1));
 
     }
 
