@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
  *
  * @author Davidson
  */
-public class DavidsonTestes {
+public class DavidsonTests {
 
     private ProdutoDAO dao;
     private Cliente cliente;
