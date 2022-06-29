@@ -134,7 +134,7 @@ public final class Pedido {
         return valorTotal;
     }
 
-    public ArrayList<ItemPedido> getItens() {
+    public List<ItemPedido> getItens() {
         return itens;
     }
 
@@ -146,7 +146,7 @@ public final class Pedido {
         return numero;
     }
 
-    public ArrayList<EventoPedido> getHistoricoPedido() {
+    public List<EventoPedido> getHistoricoPedido() {
         return eventosPedido;
     }
 
