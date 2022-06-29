@@ -44,9 +44,8 @@ public class TesteState {
 
         //Assert
         assertThat(pedido.getItens().size(), is(1));
-        //Um problema aqui: o pedido faz o reembolso para o cliente, porém o pedido foi cancelado antes dele pagar, ou seja, o cliente recebe um dinheiro que não pagou
-        assertThat(pedido.getValorReembolsado(), is(2*2.65));
-        assertThat(cliente.getSaldo(), is(2000));//Erro intencional
+        assertThat(pedido.getValorReembolsado(), is(0.0));
+        assertThat(cliente.getSaldo(), is(2000.0));
     }
 
     @Test
@@ -71,7 +70,7 @@ public class TesteState {
 
         //Assert
         assertThat(pedido.getItens().size(), is(3));
-        assertThat(pedido.getValorReembolsado(), is((2 * 3.15) + 3.69 + 1.29));
+        assertThat(pedido.getValorReembolsado(), is(((2 * 3.15) + 3.69 + 1.29) + pedido.getValorTotalImpostos() - pedido.getValorTotalDescontos()));
     }
 
     @Test
@@ -83,16 +82,23 @@ public class TesteState {
         cliente = new Cliente("Tarcisio", 2000.0);
         vendedor = new Estabelecimento("Lojas Americanas");
         Pedido pedido = new Pedido(1, cliente, vendedor, LocalTime.of(12, 00));
+        Exception exception = null;
 
         //Act
-        pedido.concluir();
-        pedido.pagar();
-        pedido.preparar();
-        pedido.sairParaEntrega();
-        pedido.entregar();
-        pedido.avaliar(5);
+        try {
+            pedido.concluir();
+            pedido.pagar();
+            pedido.preparar();
+            pedido.sairParaEntrega();
+            pedido.entregar();
+            pedido.avaliar(5);
+        }catch(Exception e){
+            exception = e;
+        }
 
         //Assert
+        assertThat(exception, instanceOf(RuntimeException.class));
+        assertThat(exception.getMessage(), is("O pedido não pode ser confirmado sem nenhum item na lista"));
         assertThat(pedido.getItens(), empty());
         assertThat(pedido.getValorFinal(), is(0.0));
     }
@@ -128,11 +134,8 @@ public class TesteState {
         assertThat(exception.getMessage(), is("Este pedido não pode ser cancelado no estado \'Pedido confirmado foi cancelado pelo estabelecimento\'"));
         assertThat(pedido.getItens(), hasSize(3));
         assertThat(pedido.getValorTotal(), is((2 * 3.15) + 3.69 + 1.29));
-        assertThat(pedido.getValorReembolsado(), is((2 * 3.15) + 3.69 + 1.29));
-        //Mais um erro: Como o cliente pagou com os impostos do estabelecimento,
-        //quando ele é reembolsado ele deveria receber todo o valor pago,
-        //porém ele recebe somente o valor dos itens e não todo o valor que ele pagou
-        assertThat(cliente.getSaldo(), is(2000));
+        assertThat(pedido.getValorReembolsado(), is(((2 * 3.15) + 3.69 + 1.29) + pedido.getValorTotalImpostos() - pedido.getValorTotalDescontos()));
+        assertThat(cliente.getSaldo(), is(2000.0));
     }
 
     @Test
@@ -195,10 +198,7 @@ public class TesteState {
         assertThat(exception.getMessage(), is("Este pedido não pode ser pago no estado \'Novo pedido cancelado pelo cliente\'"));
         assertThat(pedido.getItens(), hasSize(1));
         assertThat(pedido.getValorTotal(), is(2*2.65));
-        //Aqui foi um combo do erro do CT001 e do CT004, ele não diminuiu o saldo do cliente, pois ele não pagou,
-        //mas ele foi reembolsado, além de ter sido reembolsado com o valor dos itens e não o valor que ele seria pago
-        //Esse erro serve para testar se os erros se acumulam
-        assertThat(cliente.getSaldo(), is(2000));
+        assertThat(cliente.getSaldo(), is(2000.0));
     }
 
     @Test

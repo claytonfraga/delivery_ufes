@@ -48,13 +48,17 @@ public class PedidoNovoState extends PedidoState {
 
     @Override
     public void concluir() {
-        ProcessadoraDesconto processadoraDesconto = new ProcessadoraDesconto();
-        processadoraDesconto.processar(this.pedido);
+        if(!super.pedido.getItens().isEmpty()) {
+            ProcessadoraDesconto processadoraDesconto = new ProcessadoraDesconto();
+            processadoraDesconto.processar(this.pedido);
 
-        ProcessadoraImposto processadoraImposto = new ProcessadoraImposto();
-        processadoraImposto.processar(this.pedido);
+            ProcessadoraImposto processadoraImposto = new ProcessadoraImposto();
+            processadoraImposto.processar(this.pedido);
 
-        this.pedido.setState(new PedidoAguardandoPagamentoState(this.pedido));
+            this.pedido.setState(new PedidoAguardandoPagamentoState(this.pedido));
+        }else{
+            throw new RuntimeException("O pedido não pode ser confirmado sem nenhum item na lista");
+        }
     }
 
     @Override
