@@ -86,7 +86,7 @@ public class ProdutoDAO {
         if (quantidadeEmEstoque >= quantidade) {
             produto.decrementaEstoque(quantidade);
         } else {
-            throw new RuntimeException("Quantiade (" + quantidade + ") do produto " + codigo + "insuficiente em estoque (" + quantidadeEmEstoque + ")");
+            throw new RuntimeException("Quantiade (" + quantidade + ") do produto " + codigo + " insuficiente em estoque (" + quantidadeEmEstoque + ")");
         }
 
     }
