@@ -1,10 +1,11 @@
 package com.ufes.delivery.model.state;
 
+import com.ufes.delivery.desconto.ProcessadoraDesconto;
+import com.ufes.delivery.imposto.ProcessadoraImposto;
 import com.ufes.delivery.model.EventoPedido;
 import com.ufes.delivery.model.ItemPedido;
 import com.ufes.delivery.model.Pedido;
-import com.ufes.delivery.desconto.ProcessadoraDesconto;
-import com.ufes.delivery.imposto.ProcessadoraImposto;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
