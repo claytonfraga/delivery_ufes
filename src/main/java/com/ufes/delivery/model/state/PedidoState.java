@@ -3,6 +3,7 @@ package com.ufes.delivery.model.state;
 import com.ufes.delivery.model.EventoPedido;
 import com.ufes.delivery.model.ItemPedido;
 import com.ufes.delivery.model.Pedido;
+
 import java.time.LocalDateTime;
 
 /**

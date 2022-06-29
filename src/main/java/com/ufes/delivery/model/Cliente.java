@@ -10,10 +10,12 @@ public class Cliente {
 
     private String nome;
     private double saldo;
+    private boolean reembolsar;
 
     public Cliente(String nome, double saldo) {
         this.nome = nome;
         this.saldo = saldo;
+        reembolsar = false;
     }
 
     public String getNome() {
@@ -41,4 +43,11 @@ public class Cliente {
         return "Cliente: " + nome + ", saldo de R$ " + df.format(saldo);
     }
 
+    public boolean isReembolsar() {
+        return reembolsar;
+    }
+
+    public void setReembolsar(boolean reembolsar) {
+        this.reembolsar = reembolsar;
+    }
 }

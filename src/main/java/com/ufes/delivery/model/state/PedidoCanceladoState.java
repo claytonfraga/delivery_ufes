@@ -18,12 +18,14 @@ public class PedidoCanceladoState extends PedidoState {
     @Override
     public void reembolsar() {
         try {
-            double valor = pedido.getValorTotal();
-            pedido.setValorReembolsado(valor);
-            Cliente cliente = pedido.getCliente();
-            cliente.aumentaSaldo(valor);
+            if(super.pedido.getCliente().isReembolsar()) {
+                double valor = pedido.getValorFinal();
+                pedido.setValorReembolsado(valor);
+                Cliente cliente = pedido.getCliente();
+                cliente.aumentaSaldo(valor);
 
-            devolverProdutos();
+                devolverProdutos();
+            }
 
             pedido.setState(new ReembolsadoState(pedido));
 

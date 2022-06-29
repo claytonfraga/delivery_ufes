@@ -22,6 +22,7 @@ public class PedidoAguardandoPagamentoState extends PedidoState {
         cliente.deduzSaldo(valorAPagar);
 
         baixarProdutos();
+        super.pedido.getCliente().setReembolsar(true);
         this.pedido.setState(new PedidoConfirmadoState(pedido));
     }
 

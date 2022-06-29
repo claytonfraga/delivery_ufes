@@ -1,13 +1,13 @@
 package com.ufes.delivery.visitor;
 
-import java.text.DecimalFormat;
-import java.time.format.DateTimeFormatter;
-
 import com.ufes.delivery.imposto.Imposto;
 import com.ufes.delivery.model.Desconto;
 import com.ufes.delivery.model.EventoPedido;
 import com.ufes.delivery.model.ItemPedido;
 import com.ufes.delivery.model.Pedido;
+
+import java.text.DecimalFormat;
+import java.time.format.DateTimeFormatter;
 
  public class PedidoVisitor implements IPedidoVisitor {
 
