@@ -27,7 +27,7 @@ public class PedidoNovoState extends PedidoState {
     }
 
     private void existeItem(String nome) {
-        ArrayList<ItemPedido> itens = this.pedido.getItens();
+        List<ItemPedido> itens = this.pedido.getItens();
         for (ItemPedido item : itens) {
             if (item.getNomeProduto().equalsIgnoreCase(nome)) {
                 throw new RuntimeException("Produto " + nome + " já existe no pedido!");
@@ -37,7 +37,7 @@ public class PedidoNovoState extends PedidoState {
 
     @Override
     public void removeItem(String nome) {
-        ArrayList<ItemPedido> itens = this.pedido.getItens();
+        List<ItemPedido> itens = this.pedido.getItens();
         for (ItemPedido item : itens) {
             if (item.getNomeProduto().equalsIgnoreCase(nome)) {
                 itens.remove(item);
