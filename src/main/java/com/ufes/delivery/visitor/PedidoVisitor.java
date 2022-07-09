@@ -14,6 +14,9 @@ import java.time.format.DateTimeFormatter;
     private Pedido pedido;
 
     public PedidoVisitor(Pedido pedido) {
+        if(pedido == null){
+            throw new RuntimeException("Instancia de pedido inválida!");
+        }
         this.pedido = pedido;
     }
 
