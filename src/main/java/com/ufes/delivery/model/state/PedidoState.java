@@ -39,7 +39,7 @@ public abstract class PedidoState {
     }
 
     public void sairParaEntrega() {
-        throw new RuntimeException(getMensagemFalha(getNomeEstado(), "sair para entrega"));
+        throw new RuntimeException(getMensagemFalha(getNomeEstado(), "enviado para entrega"));
     }
 
     public void entregar() {
