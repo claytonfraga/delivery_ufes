@@ -4,7 +4,7 @@ import com.ufes.delivery.model.Cliente;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ImpostoTest {
+public class LucasMarquesTest {
 
     private Cliente cliente;
 
