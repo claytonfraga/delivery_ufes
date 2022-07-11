@@ -1,12 +1,13 @@
 package com.ufes.delivery.model.state;
 
+import com.ufes.delivery.desconto.ProcessadoraDesconto;
+import com.ufes.delivery.imposto.ProcessadoraImposto;
 import com.ufes.delivery.model.EventoPedido;
 import com.ufes.delivery.model.ItemPedido;
 import com.ufes.delivery.model.Pedido;
-import com.ufes.delivery.desconto.ProcessadoraDesconto;
-import com.ufes.delivery.imposto.ProcessadoraImposto;
+
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -26,7 +27,7 @@ public class PedidoNovoState extends PedidoState {
     }
 
     private void existeItem(String nome) {
-        ArrayList<ItemPedido> itens = this.pedido.getItens();
+        List<ItemPedido> itens = this.pedido.getItens();
         for (ItemPedido item : itens) {
             if (item.getNomeProduto().equalsIgnoreCase(nome)) {
                 throw new RuntimeException("Produto " + nome + " já existe no pedido!");
@@ -36,7 +37,7 @@ public class PedidoNovoState extends PedidoState {
 
     @Override
     public void removeItem(String nome) {
-        ArrayList<ItemPedido> itens = this.pedido.getItens();
+        List<ItemPedido> itens = this.pedido.getItens();
         for (ItemPedido item : itens) {
             if (item.getNomeProduto().equalsIgnoreCase(nome)) {
                 itens.remove(item);
@@ -48,13 +49,17 @@ public class PedidoNovoState extends PedidoState {
 
     @Override
     public void concluir() {
-        ProcessadoraDesconto processadoraDesconto = new ProcessadoraDesconto();
-        processadoraDesconto.processar(this.pedido);
+        if(!super.pedido.getItens().isEmpty()) {
+            ProcessadoraDesconto processadoraDesconto = new ProcessadoraDesconto();
+            processadoraDesconto.processar(this.pedido);
 
-        ProcessadoraImposto processadoraImposto = new ProcessadoraImposto();
-        processadoraImposto.processar(this.pedido);
+            ProcessadoraImposto processadoraImposto = new ProcessadoraImposto();
+            processadoraImposto.processar(this.pedido);
 
-        this.pedido.setState(new PedidoAguardandoPagamentoState(this.pedido));
+            this.pedido.setState(new PedidoAguardandoPagamentoState(this.pedido));
+        }else{
+            throw new RuntimeException("O pedido não pode ser confirmado sem nenhum item na lista");
+        }
     }
 
     @Override

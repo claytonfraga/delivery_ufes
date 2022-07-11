@@ -3,6 +3,7 @@ package com.ufes.delivery.model.state;
 import com.ufes.delivery.model.EventoPedido;
 import com.ufes.delivery.model.ItemPedido;
 import com.ufes.delivery.model.Pedido;
+
 import java.time.LocalDateTime;
 
 /**
@@ -38,7 +39,7 @@ public abstract class PedidoState {
     }
 
     public void sairParaEntrega() {
-        throw new RuntimeException(getMensagemFalha(getNomeEstado(), "sair para entrega"));
+        throw new RuntimeException(getMensagemFalha(getNomeEstado(), "enviado para entrega"));
     }
 
     public void entregar() {

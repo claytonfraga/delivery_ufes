@@ -1,6 +1,7 @@
 package com.ufes.delivery.dao;
 
 import com.ufes.delivery.model.Produto;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -85,7 +86,7 @@ public class ProdutoDAO {
         if (quantidadeEmEstoque >= quantidade) {
             produto.decrementaEstoque(quantidade);
         } else {
-            throw new RuntimeException("Quantiade (" + quantidade + ") do produto " + codigo + "insuficiente em estoque (" + quantidadeEmEstoque + ")");
+            throw new RuntimeException("Quantiade (" + quantidade + ") do produto " + codigo + " insuficiente em estoque (" + quantidadeEmEstoque + ")");
         }
 
     }

@@ -1,10 +1,11 @@
 package com.ufes.delivery.model;
 
 import com.ufes.delivery.imposto.Imposto;
+import com.ufes.delivery.model.state.PedidoNovoState;
 import com.ufes.delivery.model.state.PedidoState;
 import com.ufes.delivery.visitor.IPedidoVisitor;
 import com.ufes.delivery.visitor.PedidoVisitor;
-import com.ufes.delivery.model.state.PedidoNovoState;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -133,7 +134,7 @@ public final class Pedido {
         return valorTotal;
     }
 
-    public ArrayList<ItemPedido> getItens() {
+    public List<ItemPedido> getItens() {
         return itens;
     }
 
@@ -145,7 +146,7 @@ public final class Pedido {
         return numero;
     }
 
-    public ArrayList<EventoPedido> getHistoricoPedido() {
+    public List<EventoPedido> getHistoricoPedido() {
         return eventosPedido;
     }
 

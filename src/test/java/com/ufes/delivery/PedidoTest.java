@@ -1,25 +1,19 @@
 package com.ufes.delivery;
 
-import com.ufes.delivery.model.Cliente;
-
 import com.ufes.delivery.dao.ProdutoDAO;
-import com.ufes.delivery.model.Estabelecimento;
-import com.ufes.delivery.model.EventoPedido;
-import com.ufes.delivery.model.ItemPedido;
-import com.ufes.delivery.model.Pedido;
+import com.ufes.delivery.model.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Optional;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 
 
 public class PedidoTest {
