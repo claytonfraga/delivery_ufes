@@ -154,7 +154,7 @@ public class IngridTests {
         estabelecimento = new Estabelecimento("Estabelecimento1");
         Pedido pedido = new Pedido(1, cliente, estabelecimento, LocalTime.now());
         
-        double nroPedidoTeste = 4;
+        double nroPedidoTeste = 1;
         double nroPedidoReal = 0;
         
         //Act
