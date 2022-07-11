@@ -34,7 +34,7 @@ class DenerTest {
 		// Act
 
 		// Assert
-		assertEquals( " Produto: Produto de Teste, código: 38, preço unitário: 1,50, quantidade em estoque: 1,00", produto.toString() );
+		assertEquals( " Produto: Produto de Teste, código: 38, preço unitário: 1.50, quantidade em estoque: 1.00", produto.toString() );
 
 	}
 
