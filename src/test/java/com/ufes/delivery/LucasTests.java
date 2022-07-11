@@ -26,8 +26,8 @@ import org.junit.jupiter.api.Test;
  *
  * @author Lucas dos Santos Carvalho
  */
-public class LucasC {
-    public LucasC(){
+public class LucasTests {
+    public LucasTests(){
         
     }
     private ProdutoDAO dao;

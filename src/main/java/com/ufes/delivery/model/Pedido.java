@@ -82,11 +82,23 @@ public final class Pedido {
         eventosPedido.add(evento);
     }
 
+    private boolean existeDesconto(Desconto desconto) {
+        for (Desconto desc : this.getDescontosConcedidos()) {
+            if (desc.equals(desconto))
+                return true;
+        }
+        return false;
+    }
+
     public void add(Desconto desconto) {
         if (desconto == null) {
             throw new RuntimeException("Informe um desconto válido!");
         }
-        this.descontosConcedidos.add(desconto);
+        if(!existeDesconto(desconto)) {
+            this.descontosConcedidos.add(desconto);
+        } else {
+            throw new RuntimeException("O pedido só aceita uma unidade do tipo de desconto.");
+        }
     }
 
     public void add(Imposto imposto) {

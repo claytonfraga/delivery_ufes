@@ -21,9 +21,9 @@ import java.time.format.DateTimeFormatter;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
-public class Felipe {
+public class FelipeTests {
 
-    public Felipe() {
+    public FelipeTests() {
     }
 
     @Test
@@ -31,7 +31,7 @@ public class Felipe {
         //arrange
         Cliente cliente = new Cliente("Felipe", 150.00);
         String textoObtido;
-        String expected = "Cliente: Felipe, saldo de R$ 150,00";
+        String expected = "Cliente: Felipe, saldo de R$ 150.00";
         //act
 
         textoObtido = cliente.toString();
@@ -128,7 +128,7 @@ public class Felipe {
         //arrange
         Desconto desconto = new Desconto("Felipe", 0.2 ,150.00);
         String descontoObtido;
-        String expected = "Desconto: Felipe, (%):20,00, valor (R$): 150,00";
+        String expected = "Desconto: Felipe, (%):20.00, valor (R$): 150.00";
         //act
 
         descontoObtido = desconto.toString();
