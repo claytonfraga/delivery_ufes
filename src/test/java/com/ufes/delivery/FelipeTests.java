@@ -128,7 +128,7 @@ public class FelipeTests {
         //arrange
         Desconto desconto = new Desconto("Felipe", 0.2 ,150.00);
         String descontoObtido;
-        String expected = "Desconto: Felipe, (%):20,00, valor (R$): 150.00";
+        String expected = "Desconto: Felipe, (%):20.00, valor (R$): 150.00";
         //act
 
         descontoObtido = desconto.toString();
