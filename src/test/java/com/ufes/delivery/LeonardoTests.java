@@ -5,6 +5,7 @@ import com.ufes.delivery.imposto.Imposto;
 import com.ufes.delivery.model.Cliente;
 import com.ufes.delivery.model.Desconto;
 import com.ufes.delivery.model.Estabelecimento;
+import com.ufes.delivery.model.EventoPedido;
 import com.ufes.delivery.model.ItemPedido;
 import com.ufes.delivery.model.Pedido;
 import com.ufes.delivery.visitor.PedidoVisitor;
@@ -218,14 +219,21 @@ public class LeonardoTests {
         pedido.add(desconto);
         pedido.add(imposto);
 
+        StringBuilder strEventos = new StringBuilder();
+        for (EventoPedido eventoPedido : pedido.getEventos()) {
+            strEventos.append("\n\t");
+            strEventos.append(eventoPedido.toString());
+        }
+
         // Assert
         assertEquals("\n"
                 + "-------------------------------------------------------------------------------------------------\n"
                 + "Pedido: 1, data: 11/07/2022, horario: 09:25:00, estado: Novo\n"
                 + "Cliente: Cliente: Cliente, saldo de R$ 2000,00\n"
                 + "Estabelecimento: Estabelecimento: Lojas Americanas\n"
-                + "Itens do pedido:\n"
-                + "Valor total dos itens R$: 0,00\n"
+                + "Itens do pedido:"
+                + "\n\tItem: Creme de Leite, quantidade: 2,00, preço unitário: R$ 2,65, preço total do item: R$ 5,30"
+                + "\nValor total dos itens R$: 5,30\n"
                 + "\n"
                 + "Descontos concedidos:\n"
                 + "	Desconto: Teste, (%):50,00, valor (R$): 20,00\n"
@@ -237,8 +245,8 @@ public class LeonardoTests {
                 + "\n"
                 + "Valor total do pedido R$: 0,00\n"
                 + "\n"
-                + "Eventos no pedido:\n"
-                + "	Evento no pedido: 11/07/2022 10:53:13; Novo", visitor.toString());
+                + "Eventos no pedido:"
+                + strEventos.toString(), visitor.toString());
 
     }
 }
