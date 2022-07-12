@@ -8,13 +8,13 @@ import com.ufes.delivery.model.Pedido;
  */
 public class PedidoEmRotaEntregaState extends PedidoState {
 
-    public PedidoEmRotaEntregaState(Pedido pedido) {
-        super(pedido, "Pedido em rota de entrega");
-    }
+	public PedidoEmRotaEntregaState( Pedido pedido ) {
+		super( pedido, "Pedido em rota de entrega" );
+	}
 
-    @Override
-    public void entregar() {
-        this.pedido.setState(new PedidoEntregueState(this.pedido));
-    }
+	@Override
+	public void entregar() {
+		this.pedido.setState( new PedidoEntregueState( this.pedido ) );
+	}
 
 }

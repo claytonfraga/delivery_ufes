@@ -8,17 +8,17 @@ import com.ufes.delivery.model.Pedido;
  */
 public class PedidoConfirmadoState extends PedidoState {
 
-    public PedidoConfirmadoState(Pedido pedido) {
-        super(pedido, "Confirmado");
-    }
+	public PedidoConfirmadoState( Pedido pedido ) {
+		super( pedido, "Confirmado" );
+	}
 
-    @Override
-    public void preparar() {
-        this.pedido.setState(new PedidoProntoEntregaState(pedido));
-    }
+	@Override
+	public void preparar() {
+		this.pedido.setState( new PedidoProntoEntregaState( pedido ) );
+	}
 
-    @Override
-    public void cancelar() {
-        this.pedido.setState(new PedidoCanceladoState(this.pedido, "Pedido confirmado foi cancelado pelo estabelecimento"));
-    }
+	@Override
+	public void cancelar() {
+		this.pedido.setState( new PedidoCanceladoState( this.pedido, "Pedido confirmado foi cancelado pelo estabelecimento" ) );
+	}
 }

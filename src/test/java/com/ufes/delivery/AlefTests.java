@@ -1,5 +1,14 @@
 package com.ufes.delivery;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+
+import java.time.LocalTime;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
 import com.ufes.delivery.dao.ProdutoDAO;
 import com.ufes.delivery.imposto.Imposto;
 import com.ufes.delivery.model.Cliente;
@@ -9,270 +18,252 @@ import com.ufes.delivery.model.EventoPedido;
 import com.ufes.delivery.model.ItemPedido;
 import com.ufes.delivery.model.Pedido;
 import com.ufes.delivery.visitor.IPedidoVisitor;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalTime;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
 
 public class AlefTests {
-    public AlefTests(){}
-    private ProdutoDAO dao;
-    private Cliente cliente;
-    private Estabelecimento vendedor;
 
-    @BeforeEach
-    void carregaDao() {
-        dao = ProdutoDAO.getInstance();
-    }
+	public AlefTests() {}
 
-    @Test
-    @DisplayName("Realizar pedido com saldo insuficiente")
-    void CT001(){
-        
-        //Arrange
-        cliente = new Cliente("Alef", 0.0);
-        vendedor = new Estabelecimento("BC Supermercados");
-        Pedido pedido = new Pedido(1, cliente, vendedor, LocalTime.of(12, 00));
-        Exception exception = null;
+	private ProdutoDAO dao;
+	private Cliente cliente;
+	private Estabelecimento vendedor;
 
-        //Act
-        
-        try {
-            pedido.incluir(new ItemPedido(pedido, dao.buscaProdutoPorCodigo(1), 1));
-            pedido.concluir();
-            pedido.pagar();
-        } catch (Exception e) {
-            exception = e;
-        }
-        
+	@BeforeEach
+	void carregaDao() {
+		dao = ProdutoDAO.getInstance();
+	}
 
-        //Assert
-        
-        assertThat(exception.getMessage(), is("O cliente não pode pagar por esse pedido"));
-        
-    }
-    
-    @Test
-    @DisplayName("Adiconar produto com quantidade igual a 0")
-    void CT002(){
-        
-        //Arrange
-        cliente = new Cliente("Alef", 200.0);
-        vendedor = new Estabelecimento("BC Supermercados");
-        Pedido pedido = new Pedido(1, cliente, vendedor, LocalTime.of(12, 00));
-        Exception exception = null;
-       
+	@Test
+	@DisplayName( "Realizar pedido com saldo insuficiente" )
+	void CT001() {
 
-        //Act
-         try {
-            pedido.incluir(new ItemPedido(pedido, dao.buscaProdutoPorCodigo(1), 0));
-            pedido.concluir();
-            pedido.pagar();
-            pedido.getEstado();
-        } catch (Exception e) {
-            exception = e;
-        }      
+		// Arrange
+		cliente = new Cliente( "Alef", 0.0 );
+		vendedor = new Estabelecimento( "BC Supermercados" );
+		Pedido pedido = new Pedido( 1, cliente, vendedor, LocalTime.of( 12, 00 ) );
+		Exception exception = null;
 
-        //Assert
-        assertThat(exception.getMessage(), is("Quantidade deve ser > 0"));
-        
-    }
+		// Act
 
-     @Test
-    @DisplayName("Adicionar um visitante inválido no pedido")
-    void CT003(){
-                
-        //Arrange
-        cliente = new Cliente("Alef", 200.0);
-        vendedor = new Estabelecimento("BC Supermercados");
-        Pedido pedido = new Pedido(1, cliente, vendedor, LocalTime.of(12, 1));
-        Exception exception = null;
-        IPedidoVisitor visitor = null;
-       
+		try {
+			pedido.incluir( new ItemPedido( pedido, dao.buscaProdutoPorCodigo( 1 ), 1 ) );
+			pedido.concluir();
+			pedido.pagar();
+		} catch ( Exception e ) {
+			exception = e;
+		}
 
-        //Act
-         try {
-            pedido.setVisitor(visitor);
-            
-        } catch (Exception e) {
-            exception = e;
-        }
-           
-        //Assert
-        assertThat(exception.getMessage(), is("Informe um Visitante válido"));
-        
-    }
-    
-     @Test
-    @DisplayName("Adicionar um evento inválido no pedido")
-    void CT004(){
-                
-        //Arrange
-        cliente = new Cliente("Alef", 200.0);
-        vendedor = new Estabelecimento("BC Supermercados");
-        Pedido pedido = new Pedido(1, cliente, vendedor, LocalTime.of(12, 1));
-        Exception exception = null;
-        EventoPedido evento = null;
-       
+		// Assert
 
-        //Act
-         try {
-            //pedido.setVisitor(visitor);
-            pedido.add(evento);
-        } catch (Exception e) {
-            exception = e;
-        }
-           
-        //Assert
-        assertThat(exception.getMessage(), is("Informe um evento válido!"));
-        
-    }
-    
-     @Test
-    @DisplayName("Adicionar um desconto inválido no pedido")
-    void CT005(){
-                
-        //Arrange
-        cliente = new Cliente("Alef", 200.0);
-        vendedor = new Estabelecimento("BC Supermercados");
-        Pedido pedido = new Pedido(1, cliente, vendedor, LocalTime.of(12, 1));
-        Exception exception = null;
-        Desconto desconto = null;
-       
+		assertThat( exception.getMessage(), is( "O cliente não pode pagar por esse pedido" ) );
 
-        //Act
-         try {
-            //pedido.setVisitor(visitor);
-            pedido.add(desconto);
-        } catch (Exception e) {
-            exception = e;
-        }
-           
-        //Assert
-        assertThat(exception.getMessage(), is("Informe um desconto válido!"));
-        
-    }
-    
-     @Test
-    @DisplayName("Adicionar um imposto inválido no pedido")
-    void CT006(){
-                
-        //Arrange
-        cliente = new Cliente("Alef", 200.0);
-        vendedor = new Estabelecimento("BC Supermercados");
-        Pedido pedido = new Pedido(1, cliente, vendedor, LocalTime.of(12, 1));
-        Exception exception = null;
-        Imposto imposto = null;
-       
+	}
 
-        //Act
-         try {
-            //pedido.setVisitor(visitor);
-            pedido.add(imposto);
-        } catch (Exception e) {
-            exception = e;
-        }
-           
-        //Assert
-        assertThat(exception.getMessage(), is("Informe um imposto válido!"));
-        
-    }
-    
-    @Test
-    @DisplayName("Incluir pedido inválido")
-    void CT007(){
-        
-        //Arrange
-        cliente = new Cliente("Alef", 200.0);
-        vendedor = new Estabelecimento("BC Supermercados");
-        Pedido pedido = null;
-        Exception exception = null;
-       
+	@Test
+	@DisplayName( "Adiconar produto com quantidade igual a 0" )
+	void CT002() {
 
-        //Act
-         try {
-            pedido.incluir(new ItemPedido(pedido, dao.buscaProdutoPorCodigo(1), 0));
-            
-        } catch (Exception e) {
-            exception = e;
-        }
-                   
-        //Assert
-        assertThat(exception.getMessage(), is("É necessário informar o pedido!"));
-        
-    }
-    
-    @Test
-    @DisplayName("Incluir produto inválido no pedido")
-    void CT008(){
-        
-        //Arrange
-        cliente = new Cliente("Alef", 200.0);
-        vendedor = new Estabelecimento("BC Supermercados");
-        Pedido pedido = new Pedido(1, cliente, vendedor, LocalTime.of(12, 1));
-        Exception exception = null;
-       
+		// Arrange
+		cliente = new Cliente( "Alef", 200.0 );
+		vendedor = new Estabelecimento( "BC Supermercados" );
+		Pedido pedido = new Pedido( 1, cliente, vendedor, LocalTime.of( 12, 00 ) );
+		Exception exception = null;
 
-        //Act
-         try {
-            pedido.incluir(new ItemPedido(pedido, null, 0));
-            
-        } catch (Exception e) {
-            exception = e;
-        }
-                   
-        //Assert
-        assertThat(exception.getMessage(), is("Informe um produto valido!"));
-        
-    }
-    
-    @Test
-    @DisplayName("Verificar se, ao pagar um pedido, seu estado é atualizado para Confirmado")
-    void CT009(){
-        
-        //Arrange
-        cliente = new Cliente("Alef", 200.0);
-        vendedor = new Estabelecimento("BC Supermercados");
-        Pedido pedido = new Pedido(1, cliente, vendedor, LocalTime.of(12, 00));
-        
-       
+		// Act
+		try {
+			pedido.incluir( new ItemPedido( pedido, dao.buscaProdutoPorCodigo( 1 ), 0 ) );
+			pedido.concluir();
+			pedido.pagar();
+			pedido.getEstado();
+		} catch ( Exception e ) {
+			exception = e;
+		}
 
-        //Act
-         
-        pedido.incluir(new ItemPedido(pedido, dao.buscaProdutoPorCodigo(1), 1));
-        pedido.concluir();
-        pedido.pagar();
-        
-        //Assert
-        assertThat(pedido.getEstado(), is("Confirmado"));
-        
-    }
-    
-    @Test
-    @DisplayName("Verificar se, ao pagar um pedido, seu estado é atualizado para Pedido em rota de entrega")
-    void CT010(){
-        
-        //Arrange
-        cliente = new Cliente("Alef", 200.0);
-        vendedor = new Estabelecimento("BC Supermercados");
-        Pedido pedido = new Pedido(1, cliente, vendedor, LocalTime.of(12, 00));
-        
-       
+		// Assert
+		assertThat( exception.getMessage(), is( "Quantidade deve ser > 0" ) );
 
-        //Act
-         
-        pedido.incluir(new ItemPedido(pedido, dao.buscaProdutoPorCodigo(1), 1));
-        pedido.concluir();
-        pedido.pagar();
-        pedido.preparar();
-        pedido.sairParaEntrega();
-        
-        //Assert
-        assertThat(pedido.getEstado(), is("Pedido em rota de entrega"));
-        
-    }
+	}
+
+	@Test
+	@DisplayName( "Adicionar um visitante inválido no pedido" )
+	void CT003() {
+
+		// Arrange
+		cliente = new Cliente( "Alef", 200.0 );
+		vendedor = new Estabelecimento( "BC Supermercados" );
+		Pedido pedido = new Pedido( 1, cliente, vendedor, LocalTime.of( 12, 1 ) );
+		Exception exception = null;
+		IPedidoVisitor visitor = null;
+
+		// Act
+		try {
+			pedido.setVisitor( visitor );
+
+		} catch ( Exception e ) {
+			exception = e;
+		}
+
+		// Assert
+		assertThat( exception.getMessage(), is( "Informe um Visitante válido" ) );
+
+	}
+
+	@Test
+	@DisplayName( "Adicionar um evento inválido no pedido" )
+	void CT004() {
+
+		// Arrange
+		cliente = new Cliente( "Alef", 200.0 );
+		vendedor = new Estabelecimento( "BC Supermercados" );
+		Pedido pedido = new Pedido( 1, cliente, vendedor, LocalTime.of( 12, 1 ) );
+		Exception exception = null;
+		EventoPedido evento = null;
+
+		// Act
+		try {
+			// pedido.setVisitor(visitor);
+			pedido.add( evento );
+		} catch ( Exception e ) {
+			exception = e;
+		}
+
+		// Assert
+		assertThat( exception.getMessage(), is( "Informe um evento válido!" ) );
+
+	}
+
+	@Test
+	@DisplayName( "Adicionar um desconto inválido no pedido" )
+	void CT005() {
+
+		// Arrange
+		cliente = new Cliente( "Alef", 200.0 );
+		vendedor = new Estabelecimento( "BC Supermercados" );
+		Pedido pedido = new Pedido( 1, cliente, vendedor, LocalTime.of( 12, 1 ) );
+		Exception exception = null;
+		Desconto desconto = null;
+
+		// Act
+		try {
+			// pedido.setVisitor(visitor);
+			pedido.add( desconto );
+		} catch ( Exception e ) {
+			exception = e;
+		}
+
+		// Assert
+		assertThat( exception.getMessage(), is( "Informe um desconto válido!" ) );
+
+	}
+
+	@Test
+	@DisplayName( "Adicionar um imposto inválido no pedido" )
+	void CT006() {
+
+		// Arrange
+		cliente = new Cliente( "Alef", 200.0 );
+		vendedor = new Estabelecimento( "BC Supermercados" );
+		Pedido pedido = new Pedido( 1, cliente, vendedor, LocalTime.of( 12, 1 ) );
+		Exception exception = null;
+		Imposto imposto = null;
+
+		// Act
+		try {
+			// pedido.setVisitor(visitor);
+			pedido.add( imposto );
+		} catch ( Exception e ) {
+			exception = e;
+		}
+
+		// Assert
+		assertThat( exception.getMessage(), is( "Informe um imposto válido!" ) );
+
+	}
+
+	@Test
+	@DisplayName( "Incluir pedido inválido" )
+	void CT007() {
+
+		// Arrange
+		cliente = new Cliente( "Alef", 200.0 );
+		vendedor = new Estabelecimento( "BC Supermercados" );
+		Pedido pedido = null;
+		Exception exception = null;
+
+		// Act
+		try {
+			pedido.incluir( new ItemPedido( pedido, dao.buscaProdutoPorCodigo( 1 ), 0 ) );
+
+		} catch ( Exception e ) {
+			exception = e;
+		}
+
+		// Assert
+		assertThat( exception.getMessage(), is( "É necessário informar o pedido!" ) );
+
+	}
+
+	@Test
+	@DisplayName( "Incluir produto inválido no pedido" )
+	void CT008() {
+
+		// Arrange
+		cliente = new Cliente( "Alef", 200.0 );
+		vendedor = new Estabelecimento( "BC Supermercados" );
+		Pedido pedido = new Pedido( 1, cliente, vendedor, LocalTime.of( 12, 1 ) );
+		Exception exception = null;
+
+		// Act
+		try {
+			pedido.incluir( new ItemPedido( pedido, null, 0 ) );
+
+		} catch ( Exception e ) {
+			exception = e;
+		}
+
+		// Assert
+		assertThat( exception.getMessage(), is( "Informe um produto valido!" ) );
+
+	}
+
+	@Test
+	@DisplayName( "Verificar se, ao pagar um pedido, seu estado é atualizado para Confirmado" )
+	void CT009() {
+
+		// Arrange
+		cliente = new Cliente( "Alef", 200.0 );
+		vendedor = new Estabelecimento( "BC Supermercados" );
+		Pedido pedido = new Pedido( 1, cliente, vendedor, LocalTime.of( 12, 00 ) );
+
+		// Act
+
+		pedido.incluir( new ItemPedido( pedido, dao.buscaProdutoPorCodigo( 1 ), 1 ) );
+		pedido.concluir();
+		pedido.pagar();
+
+		// Assert
+		assertThat( pedido.getEstado(), is( "Confirmado" ) );
+
+	}
+
+	@Test
+	@DisplayName( "Verificar se, ao pagar um pedido, seu estado é atualizado para Pedido em rota de entrega" )
+	void CT010() {
+
+		// Arrange
+		cliente = new Cliente( "Alef", 200.0 );
+		vendedor = new Estabelecimento( "BC Supermercados" );
+		Pedido pedido = new Pedido( 1, cliente, vendedor, LocalTime.of( 12, 00 ) );
+
+		// Act
+
+		pedido.incluir( new ItemPedido( pedido, dao.buscaProdutoPorCodigo( 1 ), 1 ) );
+		pedido.concluir();
+		pedido.pagar();
+		pedido.preparar();
+		pedido.sairParaEntrega();
+
+		// Assert
+		assertThat( pedido.getEstado(), is( "Pedido em rota de entrega" ) );
+
+	}
 }
