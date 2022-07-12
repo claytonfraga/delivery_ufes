@@ -8,5 +8,5 @@ import com.ufes.delivery.model.Pedido;
  */
 interface IMetodoDesconto {
 
-    public void calcula(Pedido pedido);
+	public void calcula( Pedido pedido );
 }

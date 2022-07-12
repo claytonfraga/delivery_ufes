@@ -6,19 +6,19 @@ package com.ufes.delivery.model;
  */
 public class Estabelecimento {
 
-    private String nome;
+	private String nome;
 
-    public Estabelecimento(String nome) {
-        this.nome = nome;
-    }
+	public Estabelecimento( String nome ) {
+		this.nome = nome;
+	}
 
-    public String getNome() {
-        return this.nome;
-    }
+	public String getNome() {
+		return this.nome;
+	}
 
-    @Override
-    public String toString() {
-        return "Estabelecimento: " + getNome();
-    }
+	@Override
+	public String toString() {
+		return "Estabelecimento: " + getNome();
+	}
 
 }
