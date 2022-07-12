@@ -8,14 +8,14 @@ public interface ProdutoValidator {
         if(produto == null){
             throw new RuntimeException("Instância de produto inválida!");
         }else{
-            if(produto.getNome().isEmpty() || produto.getNome() == null){
+            if( produto.getNome() == null || produto.getNome().isEmpty()){
                 throw new RuntimeException("Nome do produto inválido!");
             }
             if(produto.getPrecoUnitario() < 0){
-                throw new RuntimeException("Produto com preço unitário inválido!");
+                throw new RuntimeException("Produto não pode ter preço unitário negativo!");
             }
             if(produto.getQuantidadeEmEstoque() < 0){
-                throw new RuntimeException("Produto com quantidade em estoque inválida!");
+                throw new RuntimeException("Produto não pode ter quantidade em estoque negativa!");
             }
         }
     }

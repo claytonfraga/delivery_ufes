@@ -1,7 +1,5 @@
 package com.ufes.delivery.model;
 
-import com.ufes.delivery.validator.ProdutoValidator;
-
 import java.text.DecimalFormat;
 
 /**
@@ -20,7 +18,6 @@ public class Produto {
         this.nome = nome;
         this.quantidadeEmEstoque = quantidadeEmEstoque;
         this.precoUnitario = precoUnitario;
-        ProdutoValidator.valida(this);
     }
 
     public String getNome() {
