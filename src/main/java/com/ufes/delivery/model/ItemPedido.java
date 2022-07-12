@@ -7,6 +7,8 @@ import com.ufes.delivery.validator.ProdutoValidator;
 
 import java.text.DecimalFormat;
 
+import com.ufes.delivery.exception.OperacaoInvalidaException;
+
 /**
  *
  * @author clayton

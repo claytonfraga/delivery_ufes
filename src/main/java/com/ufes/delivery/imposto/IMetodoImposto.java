@@ -8,6 +8,6 @@ import com.ufes.delivery.model.Pedido;
  */
 interface IMetodoImposto {
 
-    public void calcula(Pedido pedido);
+	public void calcula( Pedido pedido );
 
 }
