@@ -5,7 +5,9 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -220,9 +222,12 @@ public class LeonardoTests {
 			strEventos.append( "\n\t" );
 			strEventos.append( eventoPedido.toString() );
 		}
+		LocalDate date = LocalDate.now();
+		DateTimeFormatter formatters = DateTimeFormatter.ofPattern( "dd/MM/uuuu" );
+		String dataAtual = date.format( formatters );
 
 		// Assert
-		assertEquals( "\n" + "-------------------------------------------------------------------------------------------------\n" + "Pedido: 1, data: 11/07/2022, horario: 09:25:00, estado: Novo\n" + "Cliente: Cliente: Cliente, saldo de R$ 2000.00\n"
+		assertEquals( "\n" + "-------------------------------------------------------------------------------------------------\n" + "Pedido: 1, data: " + dataAtual + ", horario: 09:25:00, estado: Novo\n" + "Cliente: Cliente: Cliente, saldo de R$ 2000.00\n"
 				+ "Estabelecimento: Estabelecimento: Lojas Americanas\n" + "Itens do pedido:" + "\n\tItem: Creme de Leite, quantidade: 2.00, preço unitário: R$ 2.65, preço total do item: R$ 5.30" + "\nValor total dos itens R$: 5.30\n" + "\n" + "Descontos concedidos:\n"
 				+ "	Desconto: Teste, (%):50.00, valor (R$): 20.00\n" + "Valor total em descontos R$: 20.00\n" + "\n" + "Impostos calculados:\n" + "	Imposto: Teste, (%):0.00, valor (R$): 0.00\n" + "Valor total em impostos R$: 0.00\n" + "\n" + "Valor total do pedido R$: 0.00\n" + "\n"
 				+ "Eventos no pedido:" + strEventos.toString(), visitor.toString() );
