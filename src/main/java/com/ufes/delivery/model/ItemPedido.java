@@ -1,5 +1,10 @@
 package com.ufes.delivery.model;
 
+import com.ufes.delivery.validator.ClienteValidator;
+import com.ufes.delivery.validator.EstabelecimentoValidator;
+import com.ufes.delivery.validator.ItemPedidoValidator;
+import com.ufes.delivery.validator.ProdutoValidator;
+
 import java.text.DecimalFormat;
 
 /**
@@ -18,9 +23,9 @@ public class ItemPedido {
         if (pedido == null) {
             throw new RuntimeException("É necessário informar o pedido!");
         }
-        if (produto == null) {
-            throw new RuntimeException("Informe um produto valido!");
-        }
+        ProdutoValidator.valida(produto);
+        ClienteValidator.valida(pedido.getCliente());
+        EstabelecimentoValidator.valida(pedido.getEstabelecimento());
         this.pedido = pedido;
         this.produto = produto;
         this.quantidade = quantidade;
@@ -79,5 +84,4 @@ public class ItemPedido {
                 + ", preço unitário: R$ " + df.format(getValorUnitario())
                 + ", preço total do item: R$ " + df.format(getValorTotal());
     }
-
 }

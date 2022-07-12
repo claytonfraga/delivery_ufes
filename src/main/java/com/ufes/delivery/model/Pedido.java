@@ -3,6 +3,7 @@ package com.ufes.delivery.model;
 import com.ufes.delivery.imposto.Imposto;
 import com.ufes.delivery.model.state.PedidoNovoState;
 import com.ufes.delivery.model.state.PedidoState;
+import com.ufes.delivery.validator.ItemPedidoValidator;
 import com.ufes.delivery.visitor.IPedidoVisitor;
 import com.ufes.delivery.visitor.PedidoVisitor;
 
@@ -191,6 +192,7 @@ public final class Pedido {
     }
 
     public void incluir(ItemPedido item) {
+        ItemPedidoValidator.valida(item);
         state.incluir(item);
     }
 

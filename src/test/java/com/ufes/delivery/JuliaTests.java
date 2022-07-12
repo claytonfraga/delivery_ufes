@@ -157,7 +157,7 @@ public class JuliaTests {
             exception = e;
         }
 
-        assertThat(exception.getMessage(), is("Informe um produto valido!"));
+        assertThat(exception.getMessage(), is("Instância de produto inválida!"));
     }
 
     @Test
