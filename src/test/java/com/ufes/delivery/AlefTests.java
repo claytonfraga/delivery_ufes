@@ -18,8 +18,8 @@ import java.time.LocalTime;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-public class Alef {
-    public Alef(){}
+public class AlefTests {
+    public AlefTests(){}
     private ProdutoDAO dao;
     private Cliente cliente;
     private Estabelecimento vendedor;
@@ -226,7 +226,7 @@ public class Alef {
         }
                    
         //Assert
-        assertThat(exception.getMessage(), is("Informe um produto valido!"));
+        assertThat(exception.getMessage(), is("Instância de produto inválida!"));
         
     }
     

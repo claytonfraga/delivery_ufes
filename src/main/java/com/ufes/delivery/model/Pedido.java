@@ -3,6 +3,7 @@ package com.ufes.delivery.model;
 import com.ufes.delivery.imposto.Imposto;
 import com.ufes.delivery.model.state.PedidoNovoState;
 import com.ufes.delivery.model.state.PedidoState;
+import com.ufes.delivery.validator.ItemPedidoValidator;
 import com.ufes.delivery.visitor.IPedidoVisitor;
 import com.ufes.delivery.visitor.PedidoVisitor;
 
@@ -82,11 +83,23 @@ public final class Pedido {
         eventosPedido.add(evento);
     }
 
+    private boolean existeDesconto(Desconto desconto) {
+        for (Desconto desc : this.getDescontosConcedidos()) {
+            if (desc.equals(desconto))
+                return true;
+        }
+        return false;
+    }
+
     public void add(Desconto desconto) {
         if (desconto == null) {
             throw new RuntimeException("Informe um desconto válido!");
         }
-        this.descontosConcedidos.add(desconto);
+        if(!existeDesconto(desconto)) {
+            this.descontosConcedidos.add(desconto);
+        } else {
+            throw new RuntimeException("O pedido só aceita uma unidade do tipo de desconto.");
+        }
     }
 
     public void add(Imposto imposto) {
@@ -179,6 +192,7 @@ public final class Pedido {
     }
 
     public void incluir(ItemPedido item) {
+        ItemPedidoValidator.valida(item);
         state.incluir(item);
     }
 
