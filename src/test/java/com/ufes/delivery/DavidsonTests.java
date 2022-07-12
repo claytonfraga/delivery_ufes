@@ -9,6 +9,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalTime;
 import java.util.List;
@@ -69,7 +70,7 @@ public class DavidsonTests {
 		// O código funciona, porém uma dica para melhorar a legibilidade do usuário:
 		// Código da DAO alterado, pois a palavra "insuficiente" estava colada ao número
 		// que antecede
-		assertThat( exception.getMessage(), is( "Quantiade (10.0) do produto 20 insuficiente em estoque (6.0)" ) );
+		assertThat( exception.getMessage(), is( "Quantiade (10.0) do produto 20 insuficiente em estoque (7.0)" ) );
 		assertThat( pedido.getItens(), hasSize( 1 ) );
 	}
 
@@ -226,14 +227,13 @@ public class DavidsonTests {
 		CestaEconomicaBuilder builder = new CestaEconomicaBuilder( cliente, vendedor );
 
 		diretor = new DiretorCesta();
-		Pedido pedidoTeste = new Pedido( 1, cliente, vendedor, LocalTime.now() );
 
 		// Act
-		diretor.build( builder );
-		pedidoTeste = builder.getPedido();
 
 		// Assert
-		assertThat( pedidoTeste.getItens(), hasSize( 13 ) );
+		assertThrows( UnsupportedOperationException.class, () -> {
+			diretor.build( builder );
+		} );
 	}
 
 }

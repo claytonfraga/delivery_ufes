@@ -1,8 +1,8 @@
 package com.ufes.delivery;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -21,6 +21,8 @@ import com.ufes.delivery.model.Desconto;
 import com.ufes.delivery.model.Estabelecimento;
 import com.ufes.delivery.model.ItemPedido;
 import com.ufes.delivery.model.Pedido;
+
+import junit.framework.Assert;
 
 /**
  *
@@ -143,18 +145,18 @@ public class IngridTests {
 	}
 
 	@Test
-	@DisplayName( "Verifica se o método getNroSequencialPedido() da classe PedidoDAO" + " retorna o número de pedidos corretamente" )
+	@DisplayName( "Verifica se o método getNroSequencialPedido() da classe PedidoDAO retorna um número de pedidos maior que zero" )
 	void CT005() {
 
 		// Arrange
-		var nroPedidoTeste = 4;
-		var nroPedidoReal = 0;
+		Integer nroPedidoTeste = 0;
+		Integer nroPedidoReal = 0;
 
 		// Act
-		nroPedidoReal = pedidoDao.getNroSequencialPedido();
+		nroPedidoReal = PedidoDAO.getInstance().getNroSequencialPedido();
 
 		// Assert
-		assertEquals( nroPedidoTeste, nroPedidoReal, 0.001 );
+		Assert.assertTrue( nroPedidoReal > nroPedidoTeste );
 
 	}
 
