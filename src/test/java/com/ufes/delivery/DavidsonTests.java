@@ -224,7 +224,9 @@ public class DavidsonTests {
 		// Horário de início: 15:30
 		// Horário de término: 15:50
 		// Arrange
-		CestaEconomicaBuilder builder = new CestaEconomicaBuilder( cliente, vendedor );
+		Cliente cliente1 = new Cliente("Cliente teste", 100);
+		Estabelecimento estabelecimento = new Estabelecimento("Estabelecimento teste");
+		CestaEconomicaBuilder builder = new CestaEconomicaBuilder( cliente1, estabelecimento );
 
 		diretor = new DiretorCesta();
 
